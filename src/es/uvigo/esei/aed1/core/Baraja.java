@@ -8,6 +8,7 @@ package es.uvigo.esei.aed1.core;
 
 import cola.Cola;
 import pila.Pila;
+import pila.PilaVaciaExcepcion;
 
 
 public class Baraja {
@@ -24,6 +25,6 @@ public class Baraja {
     public void setBaraja(Pila baraja) {
         this.baraja = baraja;
     }
+
     
-   
 }
