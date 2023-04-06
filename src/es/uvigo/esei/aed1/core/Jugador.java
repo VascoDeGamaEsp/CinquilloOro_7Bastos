@@ -14,6 +14,11 @@ public class Jugador {
     private String nombre;
     private List<Carta> manoCartas;
 
+    public Jugador(String nombre, List<Carta> manoCartas) {
+        this.nombre = nombre;
+        this.manoCartas = manoCartas;
+    }
+
     
     
     
