@@ -38,34 +38,31 @@ public class Juego {
     mostrar estado de la partida
     mostras a quien le toca jugar*/
         int numJugadores = 0;
-        String nombre ="";
+        String nombre = "";
         try {
             do {
                 numJugadores = Integer.parseInt(iu.leeString("Introduzca numero de jugadores ( 3 o 4):"));
             } while (numJugadores > 4 || numJugadores < 3);
-            
+
             // DE MOMENTO NO TIENEN MANNO DE CARTAS...
-            
-            if (numJugadores == 3){
+            if (numJugadores == 3) {
                 nombre = iu.leeString("Introduce el nombre del jugador 1");
-                Jugador jugador1 = new Jugador (nombre, barajar(cartas));
+                Jugador jugador1 = new Jugador(nombre, numJugadores);
                 nombre = iu.leeString("Introduce el nombre del jugador 2");
-                Jugador jugador2 = new Jugador (nombre,barajar(cartas));
+                Jugador jugador2 = new Jugador(nombre, numJugadores);
                 nombre = iu.leeString("Introduce el nombre del jugador 3");
-                Jugador jugador3 = new Jugador (nombre,barajar(cartas));
+                Jugador jugador3 = new Jugador(nombre, numJugadores);
+            } else {
+                nombre = iu.leeString("Introduce el nombre del jugador 1");
+                Jugador jugador1 = new Jugador(nombre, numJugadores);
+                nombre = iu.leeString("Introduce el nombre del jugador 2");
+                Jugador jugador2 = new Jugador(nombre, numJugadores);
+                nombre = iu.leeString("Introduce el nombre del jugador 3");
+                Jugador jugador3 = new Jugador(nombre, numJugadores);
+                nombre = iu.leeString("Introduce el nombre del jugador 4");
+                Jugador jugador4 = new Jugador(nombre, numJugadores);
             }
-            
-            else{
-               nombre = iu.leeString("Introduce el nombre del jugador 1");
-               Jugador jugador1 = new Jugador (nombre, barajar(cartas));
-               nombre = iu.leeString("Introduce el nombre del jugador 2");
-               Jugador jugador2 = new Jugador (nombre,barajar(cartas));
-               nombre = iu.leeString("Introduce el nombre del jugador 3");
-               Jugador jugador3 = new Jugador (nombre,barajar(cartas));
-               nombre = iu.leeString("Introduce el nombre del jugador 4");
-               Jugador jugador4 = new Jugador (nombre,barajar(cartas)); 
-            }
-            
+
         } catch (NumberFormatException e) {
             System.out.println("No a introducido un numero");
         }
