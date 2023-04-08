@@ -10,6 +10,7 @@ import es.uvigo.esei.aed1.iu.IU;
 import java.util.Random;
 import pila.EnlazadaPila;
 import pila.Pila;
+import pila.PilaVaciaExcepcion;
 
 public class Juego {
 
@@ -21,30 +22,16 @@ public class Juego {
     }
 
     public void jugar() {
-        Baraja baraja = new Baraja();
-        Carta[] cartas = crearBaraja();
-        boolean fallo = false;
-        // baraja.setBaraja(crearBaraja());
-        barajar(cartas);
-        System.out.println("\nBaraja barajada; ");
-        for (int i = 0; i < cartas.length; i++) {
-            System.out.println(cartas[i].toString());
-
-        }
-        System.out.println("Tamaño baraja = " + cartas.length);
-        /*preguntar cuanto jugadores
-    crear juegadores
-    repartir las cartas entre los jugadores
-    mostrar estado de la partida
-    mostras a quien le toca jugar*/
-        int numJugadores = 0;
+        
         try {
-            do {
-                numJugadores = Integer.parseInt(iu.leeString("Introduzca numero de jugadores ( 3 o 4):"));
-            } while (numJugadores > 4 || numJugadores < 3);
-        } catch (NumberFormatException e) {
-            System.out.println("No a introducido un numero");
+            Baraja baraja = new Baraja();
+        } catch (PilaVaciaExcepcion e) {
+            System.out.println("La baraja no tiene cartas");
         }
+        catch(NullPointerException e){
+            System.out.println("La baraja no tiene cartas");
+        }
+
     }
 
     private Carta[] crearBaraja() {
