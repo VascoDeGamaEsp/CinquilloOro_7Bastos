@@ -27,7 +27,7 @@ public class Baraja {
         this.baraja = baraja;
     }
     
-    public static Pila barajar(Carta[] cartas) {
+    protected static Pila barajar(Carta[] cartas) {
         Random random = new Random();
         int i = 0;
 
@@ -44,6 +44,22 @@ public class Baraja {
         }
         Pila baraja = new EnlazadaPila();
         baraja.push(cartas);
+        return baraja;
+    }
+    protected static Carta[] crearBaraja() {
+        Carta[] baraja = new Carta[48];
+        String[] palo = {"oros", "espadas", "bastos", "copas"};
+        int it = 0;
+        System.out.println("\nBaraja sin barajar:");
+        for (int i = 0; i < palo.length; i++) {
+            for (int j = 1; j <= 12; j++) {
+
+                baraja[it] = new Carta(j, palo[i]);
+                System.out.println("Pos: " + it + "     " + baraja[it]);
+                it++;
+
+            }
+        }
         return baraja;
     }
 }

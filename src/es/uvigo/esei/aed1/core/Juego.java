@@ -26,16 +26,16 @@ public class Juego {
 
     public void jugar() {
         Baraja baraja = new Baraja();
-        Carta[] cartas = crearBaraja();
+         
         boolean fallo = false;
         // baraja.setBaraja(crearBaraja());
-        baraja.setBaraja(Baraja.barajar(cartas));
+        baraja.setBaraja(Baraja.barajar(Baraja.crearBaraja()));
         System.out.println("\nBaraja barajada; ");
-        for (int i = 0; i < cartas.length; i++) {
-            System.out.println(cartas[i].toString());
-
-        }
-        System.out.println("Tamaño baraja = " + cartas.length);
+//        for (int i = 0; i < cartas.length; i++) {
+//            System.out.println(cartas[i].toString());
+//
+//        }
+//        System.out.println("Tamaño baraja = " + cartas.length);
         /*preguntar cuanto jugadores
     crear juegadores
     repartir las cartas entre los jugadores
@@ -73,22 +73,7 @@ public class Juego {
 
     }
 
-    private Carta[] crearBaraja() {
-        Carta[] baraja = new Carta[48];
-        String[] palo = {"oros", "espadas", "bastos", "copas"};
-        int it = 0;
-        System.out.println("\nBaraja sin barajar:");
-        for (int i = 0; i < palo.length; i++) {
-            for (int j = 1; j <= 12; j++) {
-
-                baraja[it] = new Carta(j, palo[i]);
-                System.out.println("Pos: " + it + "     " + baraja[it]);
-                it++;
-
-            }
-        }
-        return baraja;
-    }
+    
 
     private void repartir(Baraja baraja, Jugador[] jugadores) {
         while (!baraja.getBaraja().esVacio()) {
