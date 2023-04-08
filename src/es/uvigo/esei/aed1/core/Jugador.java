@@ -3,20 +3,24 @@
  * Estructura mano: se utilizará un TAD adecuado
  * Funcionalidad: Añadir carta a la mano, convertir a String el objeto Jugador (toString)
  */
-
 package es.uvigo.esei.aed1.core;
 
 import java.util.List;
 
-
-
 public class Jugador {
+
     private String nombre;
     private List<Carta> manoCartas;
 
-    
-    
-    
+    public Jugador(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Jugador(String nombre, List<Carta> manoCartas) {
+        this.nombre = nombre;
+        this.manoCartas = manoCartas;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -32,6 +36,17 @@ public class Jugador {
     public void setManoCartas(List<Carta> manoCartas) {
         this.manoCartas = manoCartas;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("Nombre: ").append(nombre);
+        str.append("\nMano: ");
+        for (Carta carta : manoCartas) {
+            str.append(carta.toString());
+        }
+
+        return str.toString();
+    }
+
 }
