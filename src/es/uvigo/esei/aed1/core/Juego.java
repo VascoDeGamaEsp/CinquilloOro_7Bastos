@@ -1,11 +1,14 @@
 /**
- * Representa el juego del Cinquillo-Oro, con sus reglas (definidas en el documento Primera entrega).
+ * Representa el juego del Cinquillo-Oro, con sus reglas (definidas en el documento Primera entrega). 
  * Se recomienda una implementación modular.
  */
+
 package es.uvigo.esei.aed1.core;
 
 import cola.Cola;
 import cola.EnlazadaCola;
+import es.uvigo.esei.aed1.core.Baraja;
+import es.uvigo.esei.aed1.core.Carta;
 import es.uvigo.esei.aed1.iu.IU;
 import java.util.Random;
 import pila.EnlazadaPila;
@@ -25,7 +28,7 @@ public class Juego {
         Carta[] cartas = crearBaraja();
         boolean fallo = false;
         // baraja.setBaraja(crearBaraja());
-        barajar(cartas);
+        baraja.setBaraja(Baraja.barajar(cartas)); 
         System.out.println("\nBaraja barajada; ");
         for (int i = 0; i < cartas.length; i++) {
             System.out.println(cartas[i].toString());
@@ -64,22 +67,8 @@ public class Juego {
         return baraja;
     }
 
-    private void barajar(Carta[] cartas) {
-        Random random = new Random();
-        int i = 0;
+    
 
-        //genera posiciones a intercambiar en orden
-        int[] prueba = random.ints(cartas.length, 0, cartas.length).toArray();
-        //System.out.println("\nNumeros generados automaticamente:");
-        for (int j : prueba) {
-            //System.out.println(j);
-
-            //Mezcla cartas
-            Carta temp = cartas[i];
-            cartas[i] = cartas[j];
-            cartas[j] = temp;
-        }
-
-    }
+    
 
 }
