@@ -45,6 +45,7 @@ public class Jugador {
         for (Carta carta : manoCartas) {
             str.append(carta.toString());
         }
+        str.append("\n\n\n");
 
         return str.toString();
     }

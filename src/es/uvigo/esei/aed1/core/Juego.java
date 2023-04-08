@@ -27,7 +27,7 @@ public class Juego {
     public void jugar() {
         Baraja baraja = new Baraja();
          
-        boolean fallo = false;
+        
         // baraja.setBaraja(crearBaraja());
         baraja.setBaraja(Baraja.barajar(Baraja.crearBaraja()));
         System.out.println("\nBaraja barajada; ");
