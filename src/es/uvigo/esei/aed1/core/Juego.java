@@ -31,29 +31,7 @@ public class Juego {
         catch(NullPointerException e){
             System.out.println("La baraja no tiene cartas");
         }
-//        Carta[] cartas = crearBaraja();
-//        boolean fallo = false;
-//        // baraja.setBaraja(crearBaraja());
-//        barajar(cartas);
-//        System.out.println("\nBaraja barajada; ");
-//        for (int i = 0; i < cartas.length; i++) {
-//            System.out.println(cartas[i].toString());
-//
-//        }
-//        System.out.println("Tamaño baraja = " + cartas.length);
-//        /*preguntar cuanto jugadores
-//    crear juegadores
-//    repartir las cartas entre los jugadores
-//    mostrar estado de la partida
-//    mostras a quien le toca jugar*/
-//        int numJugadores = 0;
-//        try {
-//            do {
-//                numJugadores = Integer.parseInt(iu.leeString("Introduzca numero de jugadores ( 3 o 4):"));
-//            } while (numJugadores > 4 || numJugadores < 3);
-//        } catch (NumberFormatException e) {
-//            System.out.println("No a introducido un numero");
-//        }
+
     }
 
     private Carta[] crearBaraja() {
