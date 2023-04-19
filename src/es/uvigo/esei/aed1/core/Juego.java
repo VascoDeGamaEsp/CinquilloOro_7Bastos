@@ -6,6 +6,7 @@ package es.uvigo.esei.aed1.core;
 
 
 import es.uvigo.esei.aed1.iu.IU;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,8 +52,8 @@ public class Juego {
     private void crearJugadores(){
         Collection<String> nombres = iu.pedirDatosJugadores(); 
         for(String n: nombres){
-            jugadores.add(new Jugador(n));
-        }
+             jugadores.add(new Jugador(n, new ArrayList<Carta>() ));
+         }
     }
     
     
