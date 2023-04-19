@@ -55,11 +55,17 @@ public class IU {
     }
 
     public void mostrarJugador(Jugador jugador) {
-
+        System.out.println(jugador.toString());
     }
 
     public void mostrarJugadores(Collection<Jugador> jugadores) {
+            for (Jugador jugador : jugadores) {
+            System.out.println(jugador.toString());
+        }
+    }
 
+    public Collection<String> pedirDatosJugadores() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

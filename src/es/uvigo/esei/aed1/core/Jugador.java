@@ -50,4 +50,8 @@ public class Jugador {
         return str.toString();
     }
 
+    public void recogerCarta(Carta c) {
+        manoCartas.add(c);
+    }
+
 }

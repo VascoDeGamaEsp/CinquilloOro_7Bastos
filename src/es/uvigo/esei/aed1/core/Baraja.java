@@ -6,7 +6,9 @@
 
 package es.uvigo.esei.aed1.core;
 
-import cola.Cola;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import pila.EnlazadaPila;
 import pila.Pila;
@@ -14,20 +16,17 @@ import pila.Pila;
 
 public class Baraja {
 
-    private Pila baraja;
+    private static  Pila baraja = new EnlazadaPila();
 
-    public Baraja() {
-    }
+    
 
     public Pila getBaraja() {
         return baraja;
     }
 
-    public void setBaraja(Pila baraja) {
-        this.baraja = baraja;
-    }
+   
     
-    protected static Pila barajar(Carta[] cartas) {
+   /* public static Pila barajar(Carta[] cartas) {
         Random random = new Random();
         int i = 0;
 
@@ -45,21 +44,55 @@ public class Baraja {
         Pila baraja = new EnlazadaPila();
         baraja.push(cartas);
         return baraja;
-    }
-    protected static Carta[] crearBaraja() {
-        Carta[] baraja = new Carta[48];
+    }*/
+    public static void crearBaraja() {
+        
         String[] palo = {"oros", "espadas", "bastos", "copas"};
-        int it = 0;
+        
         System.out.println("\nBaraja sin barajar:");
         for (int i = 0; i < palo.length; i++) {
             for (int j = 1; j <= 12; j++) {
 
-                baraja[it] = new Carta(j, palo[i]);
-                System.out.println("Pos: " + it + "     " + baraja[it]);
-                it++;
+                baraja.push( new Carta(j, palo[i]));
+                //System.out.println("Pos: " + it + "     " + cartas[it]);
+               
 
             }
         }
-        return baraja;
+        
+        
+    }
+
+    public void barajar() {
+        crearBaraja();
+       int NUMERO_CARTAS =48;
+        int posicionAIntroducir;
+        
+        
+        Carta[] arrayCarta = new Carta[NUMERO_CARTAS];
+        Random aleatorio = new Random(System.currentTimeMillis());
+        
+        
+        //inicio
+        for (int i = 0; i < arrayCarta.length; i++) {
+            arrayCarta[i] = (Carta) baraja.pop();    
+        }
+        
+        int i = NUMERO_CARTAS - 1;
+        while ( i >= 0 ) {
+            
+            posicionAIntroducir = aleatorio.nextInt(NUMERO_CARTAS);
+            baraja.push(arrayCarta[posicionAIntroducir]);
+            arrayCarta[posicionAIntroducir] = arrayCarta[i];
+            i--;
+        }
+    }
+   
+
+  public  boolean esVacia() {
+       return baraja.esVacio();
+    }
+  public  Carta sacarCarta() {
+       return (Carta) baraja.pop();
     }
 }
