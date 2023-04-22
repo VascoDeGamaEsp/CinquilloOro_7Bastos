@@ -52,6 +52,6 @@ public class Jugador {
 
     public void recogerCarta(Carta c) {
         manoCartas.add(c);
-    }
+    } 
 
 }
