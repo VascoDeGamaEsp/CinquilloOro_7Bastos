@@ -17,24 +17,24 @@ public class Juego {
     private final IU iu;
     private Baraja baraja;
     private List<Jugador> jugadores;
-    //private Mesa mesa;
+    private Mesa mesa;
 
     public Juego(IU iu) {
         this.iu = iu;
         this.baraja = new Baraja();
         this.jugadores = new LinkedList<>();
-        //this.mesa = new Mesa();
+        this.mesa = new Mesa();
 
     }
 
     public void jugar() {
  
         baraja.barajar();
-//        crearJugadores();
-//        repartir();
-//        iu.mostrarJugadores(jugadores);
-//        Jugador turno = jugadorInicial();
-//        iu.mostrarJugador(turno);
+        crearJugadores();
+        repartir();
+        iu.mostrarJugadores(jugadores);
+        Jugador turno = jugadorInicial();
+        iu.mostrarJugador(turno);
          
 
     }

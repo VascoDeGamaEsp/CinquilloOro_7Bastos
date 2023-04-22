@@ -12,15 +12,15 @@ import pila.Pila;
 public class Baraja {
 
     private static final int CARTAS_POR_PALO = 12;
-    private static final String[] palo = {"oros", "espadas", "bastos", "copas"};
+    protected static final String[] PALOS = {"oros", "espadas", "bastos", "copas"};
     private static Pila<Carta> pilaBaraja = new EnlazadaPila<>();
     
 
     public Baraja() { 
         
-        for (int i = 0; i < palo.length; i++) {
+        for (int i = 0; i < PALOS.length; i++) {
             for (int j = 1; j <= CARTAS_POR_PALO; j++) {
-                pilaBaraja.push(new Carta(j, palo[i]));
+                pilaBaraja.push(new Carta(j, PALOS[i]));
 
             }
         }
@@ -33,7 +33,7 @@ public class Baraja {
     }
 
     public void barajar() {
-        int NUMERO_CARTAS = CARTAS_POR_PALO * palo.length;
+        int NUMERO_CARTAS = CARTAS_POR_PALO * PALOS.length;
         int posicionAIntroducir;
 
         Carta[] arrayCarta = new Carta[NUMERO_CARTAS];
