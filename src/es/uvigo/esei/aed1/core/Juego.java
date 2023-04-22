@@ -28,14 +28,17 @@ public class Juego {
     }
 
     public void jugar() {
- 
+//        int posicionTurno; 
+        
+        
+        
         baraja.barajar();
         crearJugadores();
         repartir();
         iu.mostrarJugadores(jugadores);
         Jugador turno = jugadorInicial();
         iu.mostrarJugador(turno);
-         
+        
 
     }
 
