@@ -28,8 +28,8 @@ public class Carta {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("\nNumero = ").append(numero);
-        str.append("\nPalo = ").append(palo);
+        str.append("{ ").append(numero);
+        str.append(" : ").append(palo).append(" }");
         return str.toString();
     }
 
