@@ -6,11 +6,8 @@
  */
 package es.uvigo.esei.aed1.core;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-import lista.Lista;
 
 public class Mesa {
 
@@ -18,26 +15,26 @@ public class Mesa {
 
     //constructor
     public Mesa() {
-        
+        montones = new Monton[Baraja.PALOS.length];
+
         for (int i = 0; i < 4; i++) {
-            montones[i] = new Monton(Baraja.PALOS[i]); 
+
+            montones[i] = new Monton(Baraja.PALOS[i]);
         }
 
     }
 
-    //a�adir mas funcionalidades
-    
-    public void añadirCarta(Carta carta){
-        int i =0;
+    public void añadirCarta(Carta carta) {
+        int i = 0;
         while (i < Baraja.PALOS.length
-                && montones[i].getPalo() != carta.getPalo()) {
+                && carta.getPalo().equalsIgnoreCase(Baraja.PALOS[i])) {
             i++;
         }
         if (i < Baraja.PALOS.length) {
             montones[i].añadirCarta(carta);
         }
     }
-    
+
     // mostrar el estado de la mesa
     @Override
     public String toString() {
@@ -47,6 +44,28 @@ public class Mesa {
         }
         str.append("\n");
         return str.toString();
+    }
+
+    public LinkedList mirarPosibilidades(Jugador jugador) {
+        Iterator it = jugador.getManoCartas().iterator();
+        LinkedList cartasJugables = new LinkedList();
+        Carta carta;
+        int i;
+        
+        while (it.hasNext()) {
+            carta = (Carta) it.next();
+            i = 0;
+            while (i < Baraja.PALOS.length
+                    && carta.getPalo().equalsIgnoreCase(Baraja.PALOS[i])) {
+                i++;
+            }
+            if (montones[i].verPrimero().getNumero() == carta.getNumero() - 1
+                    || montones[i].verUltimo().getNumero() == carta.getNumero() + 1) {
+                cartasJugables.add(carta);
+            } 
+        }
+        
+        return cartasJugables;
     }
 
 }

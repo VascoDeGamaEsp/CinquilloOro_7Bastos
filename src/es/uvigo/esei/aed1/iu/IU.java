@@ -5,6 +5,7 @@
 package es.uvigo.esei.aed1.iu;
 
 import es.uvigo.esei.aed1.core.Jugador;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -59,13 +60,37 @@ public class IU {
     }
 
     public void mostrarJugadores(Collection<Jugador> jugadores) {
-            for (Jugador jugador : jugadores) {
+        for (Jugador jugador : jugadores) {
             System.out.println(jugador.toString());
         }
     }
 
     public Collection<String> pedirDatosJugadores() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        Collection<String> nombres = new ArrayList<>();
+        int numJugadores = 0;
+        do {
+            try {
 
+                numJugadores = Integer.parseInt(leeString("Introduzca numero de jugadores ( 3 o 4):"));
+
+            } catch (NumberFormatException e) {
+                System.out.println("No a introducido un numero");
+            }
+        } while (numJugadores > 4 || numJugadores < 3);
+        Jugador[] jugadores = new Jugador[numJugadores];
+        String nombre = "";
+
+        for (int i = 0; i < numJugadores; i++) {
+
+            do {
+                nombre = leeString("Introduzca el nombre del jugador " + (i + 1) + ":  ");
+                if (nombre.length() > 0) {
+                    nombres.add(nombre);
+                }
+            } while (nombre.length() == 0);
+        }
+        return nombres;
+    }
 }
+
+

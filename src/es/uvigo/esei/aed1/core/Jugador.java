@@ -5,6 +5,7 @@
  */
 package es.uvigo.esei.aed1.core;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Jugador {
@@ -14,6 +15,7 @@ public class Jugador {
 
     public Jugador(String nombre) {
         this.nombre = nombre;
+        this.manoCartas = new LinkedList<>();
     }
 
     public Jugador(String nombre, List<Carta> manoCartas) {
@@ -49,6 +51,11 @@ public class Jugador {
 
         return str.toString();
     }
+    
+    public boolean manoEsVacio(){
+        return manoCartas.isEmpty();
+    }
+    
 
     public void recogerCarta(Carta c) {
         manoCartas.add(c);
@@ -61,5 +68,7 @@ public class Jugador {
         
         return c2;
     }
+    
+    
 
 }

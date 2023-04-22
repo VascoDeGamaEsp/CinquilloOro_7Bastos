@@ -32,6 +32,14 @@ public class Monton {
             monton.addLast(carta);
         }
     }
+    
+    public Carta verPrimero(){
+        return monton.getFirst();
+    }
+    
+    public Carta verUltimo(){
+        return monton.getLast();
+    }
 
     @Override
     public String toString() {
