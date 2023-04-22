@@ -16,7 +16,7 @@ public class Baraja {
     private static Pila<Carta> pilaBaraja = new EnlazadaPila<>();
     
 
-    public Baraja() {
+    public Baraja() { 
         
         for (int i = 0; i < palo.length; i++) {
             for (int j = 1; j <= CARTAS_POR_PALO; j++) {
