@@ -52,7 +52,7 @@ public class Baraja {
             i--;
         }
         
-        mostrarBaraja();
+//        mostrarBaraja();
     }
 
     public boolean esVacia() {

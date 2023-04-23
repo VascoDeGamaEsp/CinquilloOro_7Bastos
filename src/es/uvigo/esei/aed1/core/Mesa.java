@@ -8,6 +8,7 @@ package es.uvigo.esei.aed1.core;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Mesa {
 
@@ -46,25 +47,89 @@ public class Mesa {
         return str.toString();
     }
 
+//    public LinkedList mirarPosibilidades(Jugador jugador) {
+//        Iterator it = jugador.getManoCartas().iterator();
+//        LinkedList cartasJugables = new LinkedList();
+//        Carta carta;
+//        int i;
+//
+//        while (it.hasNext()) {
+//            carta = (Carta) it.next();
+//            i = 0;
+//            while (i < Baraja.PALOS.length
+//                    && carta.getPalo().equalsIgnoreCase(Baraja.PALOS[i])) {
+//                i++;
+//            }
+//            try {
+//                if (true) {
+//                    
+//                }
+//                
+//                
+//                
+////                if (montones[i].verPrimero().getNumero() == carta.getNumero() - 1
+////                        || montones[i].verUltimo().getNumero() == carta.getNumero() + 1) {
+////                    cartasJugables.add(carta);
+////                }
+//            } catch (Exception e) {
+//                System.err.println(e.getMessage());
+//            }
+//
+//        }
+//
+//        return cartasJugables;
+//    }
     public LinkedList mirarPosibilidades(Jugador jugador) {
-        Iterator it = jugador.getManoCartas().iterator();
+        List<Carta> manoJugador = jugador.getManoCartas();
+        LinkedList cartasPosibles = new LinkedList();
         LinkedList cartasJugables = new LinkedList();
-        Carta carta;
-        int i;
         
-        while (it.hasNext()) {
-            carta = (Carta) it.next();
-            i = 0;
-            while (i < Baraja.PALOS.length
-                    && carta.getPalo().equalsIgnoreCase(Baraja.PALOS[i])) {
-                i++;
+        Carta cartaAntes;
+        Carta cartaDespues;
+
+        int i;
+
+        i = 0;
+        while (i < Baraja.PALOS.length) {
+
+            if (montones[i].esVacio()) {
+                cartasPosibles.add(new Carta(5, Baraja.PALOS[i]));
+            } else {
+                try {
+                    cartaAntes = montones[i].verPrimero();
+                    cartasPosibles.add(cartaAntes.getNumero() - 1,
+                            Baraja.PALOS[i]);
+                    
+                    cartaDespues = montones[i].verUltimo();
+                    cartasPosibles.add(cartaDespues.getNumero() + 1,
+                            Baraja.PALOS[i]);
+
+                } catch (Exception e) {
+                    System.err.println("Error. " + e.getMessage());
+                }
+
             }
-            if (montones[i].verPrimero().getNumero() == carta.getNumero() - 1
-                    || montones[i].verUltimo().getNumero() == carta.getNumero() + 1) {
-                cartasJugables.add(carta);
-            } 
+            i++;
         }
         
+        System.out.println("Cartas Posibles: ");
+        
+        for (Carta carta : manoJugador) {
+
+            i = 0;
+
+            while (i < cartasPosibles.size()
+                    && !cartasPosibles.get(i).equals(carta)) {
+                i++;
+            }
+            if (i < cartasPosibles.size()) {
+                cartasJugables.add(carta);
+            }
+
+        }
+        
+        
+
         return cartasJugables;
     }
 
