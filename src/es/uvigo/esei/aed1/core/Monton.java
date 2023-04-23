@@ -37,8 +37,8 @@ public class Monton {
 
     public Carta verPrimero() throws MontonVacioException {
         if (monton.isEmpty()) {
-            throw new MontonVacioException("El monton de " 
-                    + palo +" esta vacio.");
+            throw new MontonVacioException("El monton de "
+                    + palo + " esta vacio.");
         }
 
         return monton.removeFirst();
@@ -46,13 +46,13 @@ public class Monton {
 
     public Carta verUltimo() throws MontonVacioException {
         if (monton.isEmpty()) {
-            throw new MontonVacioException("El monton de " 
-                    + palo +" esta vacio.");
+            throw new MontonVacioException("El monton de "
+                    + palo + " esta vacio.");
         }
         return monton.removeLast();
     }
-    
-    public boolean esVacio(){
+
+    public boolean esVacio() {
         return monton.isEmpty();
     }
 
@@ -62,9 +62,14 @@ public class Monton {
         sb.append("Monton de ");
         sb.append(palo).append("\n");
 
-        for (Carta carta : monton) {
-            sb.append(carta);
+        if (monton.isEmpty()) {
+            sb.append("vacio");
+        } else {
+            for (Carta carta : monton) {
+                sb.append(carta);
+            }
         }
+
         sb.append("\n");
         return sb.toString();
     }

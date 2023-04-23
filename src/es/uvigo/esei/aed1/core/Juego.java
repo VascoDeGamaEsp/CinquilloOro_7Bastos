@@ -39,14 +39,17 @@ public class Juego {
 
         posicionTurno = jugadores.indexOf(turno);
         
-        System.out.println("COMIEZA EL JUEGO");
+        System.out.println("COMIEZA EL JUEGO\n");
         do {
+            System.out.println(mesa.toString());
+            System.out.println("----------------------------------------");
+            
+            
             System.out.println("Turno de:");
             iu.mostrarJugador(turno);
             leerOpciones(turno);
             
-            System.out.println("Llegue aqui");
-            // Hacer el cambio de turno
+
             if (!turno.manoEsVacio()) {
                 posicionTurno++;
                 if (posicionTurno >= jugadores.size()){

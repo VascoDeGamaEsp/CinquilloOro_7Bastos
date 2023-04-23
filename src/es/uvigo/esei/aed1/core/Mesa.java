@@ -36,16 +36,7 @@ public class Mesa {
         }
     }
 
-    // mostrar el estado de la mesa
-    @Override
-    public String toString() {
-        StringBuilder str = new StringBuilder();
-        for (Monton monton : montones) {
-            str.append(monton);
-        }
-        str.append("\n");
-        return str.toString();
-    }
+    
 
 //    public LinkedList mirarPosibilidades(Jugador jugador) {
 //        Iterator it = jugador.getManoCartas().iterator();
@@ -148,5 +139,16 @@ public class Mesa {
 
         return cartasJugables;
     }
+// mostrar el estado de la mesa
 
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("ESTADO DE LA MESA\n");
+        for (Monton monton : montones) {
+            str.append(monton);
+        }
+        str.append("\n");
+        return str.toString();
+    }
 }
