@@ -41,7 +41,7 @@ public class Monton {
                     + palo + " esta vacio.");
         }
 
-        return monton.removeFirst();
+        return monton.getFirst();
     }
 
     public Carta verUltimo() throws MontonVacioException {
@@ -49,7 +49,7 @@ public class Monton {
             throw new MontonVacioException("El monton de "
                     + palo + " esta vacio.");
         }
-        return monton.removeLast();
+        return monton.getLast();
     }
 
     public boolean esVacio() {

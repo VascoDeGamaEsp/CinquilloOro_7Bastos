@@ -28,7 +28,7 @@ public class Mesa {
     public void añadirCarta(Carta carta) {
         int i = 0;
         while (i < Baraja.PALOS.length
-                && carta.getPalo().equalsIgnoreCase(Baraja.PALOS[i])) {
+                && !carta.getPalo().equalsIgnoreCase(Baraja.PALOS[i])) {
             i++;
         }
         if (i < Baraja.PALOS.length) {
@@ -36,44 +36,8 @@ public class Mesa {
         }
     }
 
-    
-
-//    public LinkedList mirarPosibilidades(Jugador jugador) {
-//        Iterator it = jugador.getManoCartas().iterator();
-//        LinkedList cartasJugables = new LinkedList();
-//        Carta carta;
-//        int i;
-//
-//        while (it.hasNext()) {
-//            carta = (Carta) it.next();
-//            i = 0;
-//            while (i < Baraja.PALOS.length
-//                    && carta.getPalo().equalsIgnoreCase(Baraja.PALOS[i])) {
-//                i++;
-//            }
-//            try {
-//                if (true) {
-//                    
-//                }
-//                
-//                
-//                
-////                if (montones[i].verPrimero().getNumero() == carta.getNumero() - 1
-////                        || montones[i].verUltimo().getNumero() == carta.getNumero() + 1) {
-////                    cartasJugables.add(carta);
-////                }
-//            } catch (Exception e) {
-//                System.err.println(e.getMessage());
-//            }
-//
-//        }
-//
-//        return cartasJugables;
-//    }
     public LinkedList mirarPosibilidades(Jugador jugador) {
         List<Carta> manoJugador = jugador.getManoCartas();
-        
-        
 
         LinkedList<Carta> cartasPosibles = new LinkedList();
         LinkedList<Carta> cartasJugables = new LinkedList();
@@ -91,14 +55,14 @@ public class Mesa {
             } else {
                 try {
                     cartaAntes = montones[i].verPrimero();
-                    
-                    cartasPosibles.add( new Carta(
+
+                    cartasPosibles.add(new Carta(
                             cartaAntes.getNumero() - 1,
                             Baraja.PALOS[i]));
 
                     cartaDespues = montones[i].verUltimo();
-                    
-                    cartasPosibles.add( new Carta(
+
+                    cartasPosibles.add(new Carta(
                             cartaDespues.getNumero() + 1,
                             Baraja.PALOS[i]));
 
@@ -110,18 +74,12 @@ public class Mesa {
             i++;
         }
 
-//        System.out.println("Cartas Posibles: ");
-//        while (!cartasPosibles.isEmpty()) {
-//            System.out.println(cartasPosibles.removeFirst());
-//        }
-
         for (Carta carta : manoJugador) {
 
             i = 0;
 
             while (i < cartasPosibles.size()
                     && !cartasPosibles.get(i).esIgual(carta)) {
-//                System.out.println(cartasPosibles.get(i).);
                 i++;
             }
             if (i < cartasPosibles.size()) {
@@ -129,22 +87,14 @@ public class Mesa {
             }
 
         }
-//        
-//        System.out.println("Cartas Jugables:");
-//        Iterator it = cartasJugables.iterator();
-//        while (it.hasNext()) {
-//            System.out.println((Carta) it.next());
-//        }
-//        System.out.println("-------------------------------------------------");
 
         return cartasJugables;
     }
-// mostrar el estado de la mesa
 
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("ESTADO DE LA MESA\n");
+        str.append("\nESTADO DE LA MESA\n\n");
         for (Monton monton : montones) {
             str.append(monton);
         }

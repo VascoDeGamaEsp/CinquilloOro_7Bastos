@@ -33,9 +33,7 @@ public class Juego {
         repartir();
         iu.mostrarJugadores(jugadores);
         Jugador turno = jugadorInicial();
-        
-//        System.out.println("Jugador que comienza:");
-//        iu.mostrarJugador(turno);
+
 
         posicionTurno = jugadores.indexOf(turno);
         
@@ -65,28 +63,6 @@ public class Juego {
 
     }
     
-//    private void turnoJugador() {
-//        Jugador turno = jugadorInicial();
-//        iu.mostrarJugador(turno);
-//        boolean finalizada = false;
-//        int opcion=0;
-//        int total=0;
-//        while (finalizada == false) {
-//            int i = 0;
-//            for (i=0; i < jugadores.size()+1; i++) {
-//                
-//                opcion = iu.leeNum("Escoge una carta");
-//                Carta carta = jugadores.get(i).sacarCarta(opcion);
-//                if (i == jugadores.size()){
-//                    i=0;
-//                    total++;
-//                }
-//                
-//            }
-//            
-//        }
-//    }
-
     private Jugador jugadorInicial() {
         Random random = new Random();
         return jugadores.get(random.nextInt(jugadores.size()));
@@ -107,26 +83,6 @@ public class Juego {
         }
     }
 
-//    private Carta leerOpciones(Jugador jugador) {
-//        int opcion = 0;
-//        LinkedList<Carta> cartasJugables = mesa.mirarPosibilidades(jugador);
-//
-//        if (cartasJugables.size() == 0) {
-//            System.out.println("No puedes colocar ninguna carta");
-//            return null;
-//        } else {
-//            for (int i = 0; i < cartasJugables.size(); i++) {
-//                System.out.println("( " + (i + 1) + ") "
-//                        + cartasJugables.get(i).toString());
-//
-//            }
-//
-//            opcion = iu.leeNum("Escoge tu carta a jugar: ") - 1;
-//            return cartasJugables.get(opcion);
-//        }
-//
-//        
-//    }
     
     private void leerOpciones(Jugador jugador) {
         int opcion;
@@ -143,8 +99,11 @@ public class Juego {
                         + cartasJugables.get(i).toString());
 
             }
+            do {
+                opcion = iu.leeNum("Escoge tu carta a jugar: ") - 1;
+            } while (opcion < 0 || opcion >= cartasJugables.size());
 
-            opcion = iu.leeNum("Escoge tu carta a jugar: ") - 1;
+            
             mesa.añadirCarta(cartasJugables.get(opcion));
             jugador.eliminarCarta(cartasJugables.get(opcion));
            
