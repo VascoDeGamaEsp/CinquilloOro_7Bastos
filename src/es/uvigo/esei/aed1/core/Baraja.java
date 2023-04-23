@@ -5,6 +5,7 @@
  */
 package es.uvigo.esei.aed1.core;
 
+import java.util.ArrayList;
 import java.util.Random;
 import pila.EnlazadaPila;
 import pila.Pila;
@@ -31,29 +32,30 @@ public class Baraja {
     public Pila getBaraja() {
         return pilaBaraja;
     }
-
+    
     public void barajar() {
         int NUMERO_CARTAS = CARTAS_POR_PALO * PALOS.length;
         int posicionAIntroducir;
 
-        Carta[] arrayCarta = new Carta[NUMERO_CARTAS];
+        ArrayList<Carta> arrayCarta = new ArrayList<>();
         Random aleatorio = new Random(System.currentTimeMillis());
 
-        for (int i = 0; i < arrayCarta.length; i++) {
-            arrayCarta[i] = pilaBaraja.pop();
+        while (!pilaBaraja.esVacio()) {
+            arrayCarta.add(pilaBaraja.pop());
         }
+        int i = 0;
+        while (i < NUMERO_CARTAS) {
 
-        int i = NUMERO_CARTAS - 1;
-        while (i >= 0) {
-
-            posicionAIntroducir = aleatorio.nextInt(NUMERO_CARTAS);
-            pilaBaraja.push(arrayCarta[posicionAIntroducir]);
-            arrayCarta[posicionAIntroducir] = arrayCarta[i];
-            i--;
+            posicionAIntroducir = aleatorio.nextInt(NUMERO_CARTAS - i);
+            
+            pilaBaraja.push(arrayCarta.remove(posicionAIntroducir));
+            
+            i++;
         }
         
-//        mostrarBaraja();
+        mostrarBaraja();
     }
+
 
     public boolean esVacia() {
         return pilaBaraja.esVacio();
@@ -63,7 +65,7 @@ public class Baraja {
         return pilaBaraja.pop();
     }
 
-    private void mostrarBaraja() {
+    private  void mostrarBaraja() {
         Pila<Carta> copia = copiaBaraja(pilaBaraja);
         int i = 1;
         while (!copia.esVacio()) {

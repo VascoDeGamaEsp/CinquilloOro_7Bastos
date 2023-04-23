@@ -60,6 +60,10 @@ public class Juego {
             
 
         } while (!turno.manoEsVacio());
+        
+        System.out.println("Acabo la partida");
+        System.out.println("Ganador: ");
+        iu.mostrarJugador(turno);
 
     }
     
