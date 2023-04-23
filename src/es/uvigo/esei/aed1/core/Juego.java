@@ -143,6 +143,7 @@ public class Juego {
 
             opcion = iu.leeNum("Escoge tu carta a jugar: ") - 1;
             mesa.añadirCarta(cartasJugables.get(opcion));
+            jugador.eliminarCarta(cartasJugables.get(opcion));
            
         }
  

@@ -81,9 +81,12 @@ public class Mesa {
 //    }
     public LinkedList mirarPosibilidades(Jugador jugador) {
         List<Carta> manoJugador = jugador.getManoCartas();
-        LinkedList cartasPosibles = new LinkedList();
-        LinkedList cartasJugables = new LinkedList();
         
+        
+
+        LinkedList<Carta> cartasPosibles = new LinkedList();
+        LinkedList<Carta> cartasJugables = new LinkedList();
+
         Carta cartaAntes;
         Carta cartaDespues;
 
@@ -97,12 +100,16 @@ public class Mesa {
             } else {
                 try {
                     cartaAntes = montones[i].verPrimero();
-                    cartasPosibles.add(cartaAntes.getNumero() - 1,
-                            Baraja.PALOS[i]);
                     
+                    cartasPosibles.add( new Carta(
+                            cartaAntes.getNumero() - 1,
+                            Baraja.PALOS[i]));
+
                     cartaDespues = montones[i].verUltimo();
-                    cartasPosibles.add(cartaDespues.getNumero() + 1,
-                            Baraja.PALOS[i]);
+                    
+                    cartasPosibles.add( new Carta(
+                            cartaDespues.getNumero() + 1,
+                            Baraja.PALOS[i]));
 
                 } catch (Exception e) {
                     System.err.println("Error. " + e.getMessage());
@@ -111,15 +118,19 @@ public class Mesa {
             }
             i++;
         }
-        
-        System.out.println("Cartas Posibles: ");
-        
+
+//        System.out.println("Cartas Posibles: ");
+//        while (!cartasPosibles.isEmpty()) {
+//            System.out.println(cartasPosibles.removeFirst());
+//        }
+
         for (Carta carta : manoJugador) {
 
             i = 0;
 
             while (i < cartasPosibles.size()
-                    && !cartasPosibles.get(i).equals(carta)) {
+                    && !cartasPosibles.get(i).esIgual(carta)) {
+//                System.out.println(cartasPosibles.get(i).);
                 i++;
             }
             if (i < cartasPosibles.size()) {
@@ -127,8 +138,13 @@ public class Mesa {
             }
 
         }
-        
-        
+//        
+//        System.out.println("Cartas Jugables:");
+//        Iterator it = cartasJugables.iterator();
+//        while (it.hasNext()) {
+//            System.out.println((Carta) it.next());
+//        }
+//        System.out.println("-------------------------------------------------");
 
         return cartasJugables;
     }

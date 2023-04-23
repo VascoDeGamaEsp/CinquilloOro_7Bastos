@@ -38,6 +38,10 @@ public class Jugador {
     public void setManoCartas(List<Carta> manoCartas) {
         this.manoCartas = manoCartas;
     }
+    
+    public void eliminarCarta(Carta c){
+        manoCartas.remove(c);
+    }
 
     @Override
     public String toString() {

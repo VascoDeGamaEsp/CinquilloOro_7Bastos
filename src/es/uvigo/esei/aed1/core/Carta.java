@@ -22,6 +22,10 @@ public class Carta {
     public String getPalo() {
         return palo;
     }
+    
+    public boolean esIgual(Carta c){
+        return c.getNumero() == numero && c.getPalo().equalsIgnoreCase(palo);
+    }
 
     
 
