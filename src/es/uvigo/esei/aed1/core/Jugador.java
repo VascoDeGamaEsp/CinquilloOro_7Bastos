@@ -5,16 +5,22 @@
  */
 package es.uvigo.esei.aed1.core;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Jugador {
 
     private String nombre;
-    private Carta[] manoCartas;
+    private List<Carta> manoCartas;
 
-    public Jugador(String nombre, int numJugadores) {
+    public Jugador(String nombre) {
         this.nombre = nombre;
-        this.manoCartas = new Carta[48 / numJugadores];
+        this.manoCartas = new LinkedList<>();
+    }
+
+    public Jugador(String nombre, List<Carta> manoCartas) {
+        this.nombre = nombre;
+        this.manoCartas = manoCartas;
     }
 
     public String getNombre() {
@@ -25,16 +31,44 @@ public class Jugador {
         this.nombre = nombre;
     }
 
-    public String getManoCartas(int numJugadores) {
-        StringBuilder sb = new StringBuilder ();
-        for (int i=0; i< manoCartas.length; i++){
-            sb.append(i+1).append(". ").append(manoCartas[i]).append("\n");
-        }
-        return sb.toString();
+    public List<Carta> getManoCartas() {
+        return manoCartas;
     }
 
-    public void setManoCartas(Carta [] manoCartas) {
+    public void setManoCartas(List<Carta> manoCartas) {
         this.manoCartas = manoCartas;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("Nombre: ").append(nombre);
+        str.append("\nMano: ");
+        for (Carta carta : manoCartas) {
+            str.append(carta.toString());
+        }
+        str.append("\n\n\n");
+
+        return str.toString();
+    }
+    
+    public boolean manoEsVacio(){
+        return manoCartas.isEmpty();
+    }
+    
+
+    public void recogerCarta(Carta c) {
+        manoCartas.add(c);
+    }
+    
+//    public Carta sacarCarta (Carta carta){
+//        Carta c = manoCartas.get(pos);
+//        Carta c2 = manoCartas.get(pos);
+//        manoCartas.remove(c);
+//        
+//        return c2;
+//    }
+    
+    
 
 }

@@ -4,103 +4,126 @@
  */
 package es.uvigo.esei.aed1.core;
 
-import cola.Cola;
-import cola.EnlazadaCola;
 import es.uvigo.esei.aed1.iu.IU;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
-import pila.EnlazadaPila;
-import pila.Pila;
 
 public class Juego {
 
     private final IU iu;
+    private Baraja baraja;
+    private List<Jugador> jugadores;
+    private Mesa mesa;
 
     public Juego(IU iu) {
         this.iu = iu;
+        this.baraja = new Baraja();
+        this.jugadores = new LinkedList<>();
+        this.mesa = new Mesa();
 
     }
 
     public void jugar() {
-        Baraja baraja = new Baraja();
-        Carta[] cartas = crearBaraja();
-        boolean fallo = false;
-        // baraja.setBaraja(crearBaraja());
-        barajar(cartas);
-        System.out.println("\nBaraja barajada; ");
-        for (int i = 0; i < cartas.length; i++) {
-            System.out.println(cartas[i].toString());
+        int posicionTurno;
 
-        }
-        System.out.println("Tamaño baraja = " + cartas.length);
-        /*preguntar cuanto jugadores
-    crear juegadores
-    repartir las cartas entre los jugadores
-    mostrar estado de la partida
-    mostras a quien le toca jugar*/
-        int numJugadores = 0;
-        String nombre = "";
-        try {
-            do {
-                numJugadores = Integer.parseInt(iu.leeString("Introduzca numero de jugadores ( 3 o 4):"));
-            } while (numJugadores > 4 || numJugadores < 3);
+        baraja.barajar();
+        crearJugadores();
+        repartir();
+        iu.mostrarJugadores(jugadores);
+        Jugador turno = jugadorInicial();
+        iu.mostrarJugador(turno);
 
-            // DE MOMENTO NO TIENEN MANNO DE CARTAS...
-            if (numJugadores == 3) {
-                nombre = iu.leeString("Introduce el nombre del jugador 1");
-                Jugador jugador1 = new Jugador(nombre, numJugadores);
-                nombre = iu.leeString("Introduce el nombre del jugador 2");
-                Jugador jugador2 = new Jugador(nombre, numJugadores);
-                nombre = iu.leeString("Introduce el nombre del jugador 3");
-                Jugador jugador3 = new Jugador(nombre, numJugadores);
-            } else {
-                nombre = iu.leeString("Introduce el nombre del jugador 1");
-                Jugador jugador1 = new Jugador(nombre, numJugadores);
-                nombre = iu.leeString("Introduce el nombre del jugador 2");
-                Jugador jugador2 = new Jugador(nombre, numJugadores);
-                nombre = iu.leeString("Introduce el nombre del jugador 3");
-                Jugador jugador3 = new Jugador(nombre, numJugadores);
-                nombre = iu.leeString("Introduce el nombre del jugador 4");
-                Jugador jugador4 = new Jugador(nombre, numJugadores);
-            }
+        posicionTurno = jugadores.indexOf(turno);
+        Carta carta ;
+        
+        do {
+            
+            carta = leerOpciones(turno);
+            if (carta != null) {
+                mesa.añadirCarta(carta);
+            } 
+            
+            // Hacer el cambio de turno
+            if (!turno.manoEsVacio()) {
+                posicionTurno++;
+                if (posicionTurno >= jugadores.size()){
+                    posicionTurno = 0;
+                }
+            }  
+            
+            turno = jugadores.get(posicionTurno);
 
-        } catch (NumberFormatException e) {
-            System.out.println("No a introducido un numero");
-        }
+        } while (!turno.manoEsVacio());
+        
+
     }
 
-    private Carta[] crearBaraja() {
-        Carta[] baraja = new Carta[48];
-        String[] palo = {"oros", "espadas", "bastos", "copas"};
-        int it = 0;
-        System.out.println("\nBaraja sin barajar:");
-        for (int i = 0; i < palo.length; i++) {
-            for (int j = 1; j <= 12; j++) {
-
-                baraja[it] = new Carta(j, palo[i]);
-                System.out.println("Pos: " + it + "     " + baraja[it]);
-                it++;
-
-            }
-        }
-        return baraja;
-    }
-
-    private void barajar(Carta[] cartas) {
+    private Jugador jugadorInicial() {
         Random random = new Random();
-        int i = 0;
-
-        //genera posiciones a intercambiar en orden
-        int[] prueba = random.ints(cartas.length, 0, cartas.length).toArray();
-        //System.out.println("\nNumeros generados automaticamente:");
-        for (int j : prueba) {
-            //System.out.println(j);
-
-            //Mezcla cartas
-            Carta temp = cartas[i];
-            cartas[i] = cartas[j];
-            cartas[j] = temp;
-        }
-
+        return jugadores.get(random.nextInt(jugadores.size()));
     }
 
+    private void crearJugadores() {
+        Collection<String> nombres = iu.pedirDatosJugadores();
+        for (String n : nombres) {
+            jugadores.add(new Jugador(n));
+        }
+    }
+
+    private void repartir() {
+        while (!baraja.esVacia()) {
+            for (Jugador jugador : jugadores) {
+                jugador.recogerCarta(baraja.pop());
+            }
+        }
+    }
+
+    private Carta leerOpciones(Jugador jugador) {
+        int opcion = 0;
+        LinkedList<Carta> cartasJugables = mesa.mirarPosibilidades(jugador);
+
+        if (cartasJugables.size() == 0) {
+            System.out.println("No puedes colocar ninguna carta");
+            return null;
+        } else {
+            for (int i = 0; i < cartasJugables.size(); i++) {
+                System.out.println("( " + (i + 1) + ") "
+                        + cartasJugables.get(i).toString());
+
+            }
+
+            opcion = iu.leeNum("Escoge tu carta a jugar: ") - 1;
+            return cartasJugables.get(opcion);
+        }
+
+        
+    }
+    
+    private void turnoJugador() {
+        Jugador turno = jugadorInicial();
+        System.out.println("Jugador inicial: \n");
+        iu.mostrarJugador(turno);
+        boolean finalizada = false;
+        int opcion=0;
+        int total=0;
+        while (finalizada == false) {
+            int i = 0;
+            for (i=0; i < jugadores.size()+1; i++) {
+                
+                Carta cartaEscogida = leerOpciones(jugadores.get(i));
+//                Carta cartaEscogida = leerOpciones(jugadores.get(i));
+//                Carta cartaMesa = jugadores.get(i).sacarCarta(cartaEscogida);
+                mesa.añadirCarta(cartaEscogida);
+
+                if (i == jugadores.size()){
+                    i=0;
+                    total++;
+                }
+                
+            }
+            
+        }
+    }
 }

@@ -3,27 +3,95 @@
 * Estructura: se utilizará un TAD adecuado
 * Funcionalidad: barajar las cartas, devolver la carta situada encima del montón de cartas
  */
-
 package es.uvigo.esei.aed1.core;
 
-import cola.Cola;
+import java.util.Random;
+import pila.EnlazadaPila;
 import pila.Pila;
-
 
 public class Baraja {
 
-    private Pila baraja;
+    private static final int CARTAS_POR_PALO = 12;
+    protected static final String[] PALOS = {"oros", "espadas", "bastos", "copas"};
+    private static Pila<Carta> pilaBaraja = new EnlazadaPila<>();
+    
 
-    public Baraja() {
+    public Baraja() { 
+        
+        for (int i = 0; i < PALOS.length; i++) {
+            for (int j = 1; j <= CARTAS_POR_PALO; j++) {
+                pilaBaraja.push(new Carta(j, PALOS[i]));
+
+            }
+        }
+
+//        mostrarBaraja();
     }
 
     public Pila getBaraja() {
-        return baraja;
+        return pilaBaraja;
     }
 
-    public void setBaraja(Pila baraja) {
-        this.baraja = baraja;
+    public void barajar() {
+        int NUMERO_CARTAS = CARTAS_POR_PALO * PALOS.length;
+        int posicionAIntroducir;
+
+        Carta[] arrayCarta = new Carta[NUMERO_CARTAS];
+        Random aleatorio = new Random(System.currentTimeMillis());
+
+        for (int i = 0; i < arrayCarta.length; i++) {
+            arrayCarta[i] = pilaBaraja.pop();
+        }
+
+        int i = NUMERO_CARTAS - 1;
+        while (i >= 0) {
+
+            posicionAIntroducir = aleatorio.nextInt(NUMERO_CARTAS);
+            pilaBaraja.push(arrayCarta[posicionAIntroducir]);
+            arrayCarta[posicionAIntroducir] = arrayCarta[i];
+            i--;
+        }
+        
+        mostrarBaraja();
     }
-    
-   
+
+    public boolean esVacia() {
+        return pilaBaraja.esVacio();
+    }
+
+    public Carta pop() {
+        return pilaBaraja.pop();
+    }
+
+    private void mostrarBaraja() {
+        Pila<Carta> copia = copiaBaraja(pilaBaraja);
+        int i = 1;
+        while (!copia.esVacio()) {
+            System.out.println(copia.pop());
+            System.out.println("Pos: " + i);
+            i++;
+        }
+        
+        System.out.println("\n-------------\n");
+
+    }
+
+    private Pila<Carta> copiaBaraja(Pila<Carta> p) {
+        Pila<Carta> copia = new EnlazadaPila<>();
+        Pila<Carta> auxiliar = new EnlazadaPila<>();
+
+        while (!p.esVacio()) {
+            auxiliar.push(p.pop());
+        }
+
+        while (!auxiliar.esVacio()) {
+            p.push(auxiliar.top());
+            copia.push(auxiliar.pop());
+        }
+        
+//        System.out.println("\nCopia hecha\n");
+
+        return copia;
+    }
+
 }
