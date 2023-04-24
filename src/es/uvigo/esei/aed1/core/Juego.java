@@ -62,8 +62,8 @@ public class Juego {
         } while (!turno.manoEsVacio());
         
         System.out.println("Acabo la partida");
-        System.out.println("Ganador: ");
-        iu.mostrarJugador(turno);
+        System.out.print("Ganador: ");
+        System.out.println(turno.getNombre());
 
     }
     
@@ -94,8 +94,8 @@ public class Juego {
         if (cartasJugables.isEmpty()) {
             do {
                 opcion = iu.leeNum("No puedes colocar ninguna carta."
-                    + " Pulsa 0 para continuar:\n");
-            } while ( opcion != 0 );
+                    + " Pulsa 1 para continuar:\n");
+            } while ( opcion != 1 );
             
         } else {
             for (int i = 0; i < cartasJugables.size(); i++) {

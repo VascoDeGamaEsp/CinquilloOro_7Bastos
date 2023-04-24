@@ -53,7 +53,7 @@ public class Baraja {
             i++;
         }
         
-        mostrarBaraja();
+//        mostrarBaraja();
     }
 
 
