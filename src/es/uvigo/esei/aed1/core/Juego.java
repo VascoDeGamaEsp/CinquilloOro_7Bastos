@@ -34,39 +34,35 @@ public class Juego {
         iu.mostrarJugadores(jugadores);
         Jugador turno = jugadorInicial();
 
-
         posicionTurno = jugadores.indexOf(turno);
-        
-        System.out.println("COMIEZA EL JUEGO\n");
+
+        iu.mostrarMensaje("COMIEZA EL JUEGO\n");
         do {
-            System.out.println(mesa.toString());
-            System.out.println("----------------------------------------");
-            
-            
-            System.out.println("Turno de:");
+            iu.mostrarMensaje(mesa.toString());
+            iu.mostrarMensaje("----------------------------------------");
+
+            iu.mostrarMensaje("Turno de:");
             iu.mostrarJugador(turno);
             leerOpciones(turno);
-            
 
             if (!turno.manoEsVacio()) {
                 posicionTurno++;
-                if (posicionTurno >= jugadores.size()){
+                if (posicionTurno >= jugadores.size()) {
                     posicionTurno = 0;
                 }
-                
+
                 turno = jugadores.get(posicionTurno);
-            }  
-            
-            
+            }
 
         } while (!turno.manoEsVacio());
         
-        System.out.println("Acabo la partida");
-        System.out.print("Ganador: ");
-        System.out.println(turno.getNombre());
+        iu.mostrarMensaje("Acabo la partida");
+        iu.mostrarMensaje("Ganador: ");
+        iu.mostrarMensaje(turno.getNombre());
+
 
     }
-    
+
     private Jugador jugadorInicial() {
         Random random = new Random();
         return jugadores.get(random.nextInt(jugadores.size()));
@@ -87,33 +83,29 @@ public class Juego {
         }
     }
 
-    
     private void leerOpciones(Jugador jugador) {
         int opcion;
         LinkedList<Carta> cartasJugables = mesa.mirarPosibilidades(jugador);
         if (cartasJugables.isEmpty()) {
             do {
                 opcion = iu.leeNum("No puedes colocar ninguna carta."
-                    + " Pulsa 1 para continuar:\n");
-            } while ( opcion != 1 );
-            
+                        + " Pulsa 1 para continuar:\n");
+            } while (opcion != 1);
+
         } else {
             for (int i = 0; i < cartasJugables.size(); i++) {
-                System.out.println("( " + (i + 1) + ") "
+                iu.mostrarMensaje("( " + (i + 1) + ") "
                         + cartasJugables.get(i).toString());
-
             }
             do {
                 opcion = iu.leeNum("Escoge tu carta a jugar: ") - 1;
             } while (opcion < 0 || opcion >= cartasJugables.size());
 
-            
             mesa.añadirCarta(cartasJugables.get(opcion));
             jugador.eliminarCarta(cartasJugables.get(opcion));
-           
+
         }
- 
+
     }
-    
-    
+
 }

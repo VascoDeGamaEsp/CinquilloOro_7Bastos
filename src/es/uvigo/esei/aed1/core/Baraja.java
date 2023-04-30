@@ -26,7 +26,6 @@ public class Baraja {
             }
         }
 
-//        mostrarBaraja();
     }
 
     public Pila getBaraja() {
@@ -53,7 +52,6 @@ public class Baraja {
             i++;
         }
         
-//        mostrarBaraja();
     }
 
 
@@ -65,35 +63,5 @@ public class Baraja {
         return pilaBaraja.pop();
     }
 
-    private  void mostrarBaraja() {
-        Pila<Carta> copia = copiaBaraja(pilaBaraja);
-        int i = 1;
-        while (!copia.esVacio()) {
-            System.out.println(copia.pop());
-            System.out.println("Pos: " + i);
-            i++;
-        }
-        
-        System.out.println("\n-------------\n");
-
-    }
-
-    private Pila<Carta> copiaBaraja(Pila<Carta> p) {
-        Pila<Carta> copia = new EnlazadaPila<>();
-        Pila<Carta> auxiliar = new EnlazadaPila<>();
-
-        while (!p.esVacio()) {
-            auxiliar.push(p.pop());
-        }
-
-        while (!auxiliar.esVacio()) {
-            p.push(auxiliar.top());
-            copia.push(auxiliar.pop());
-        }
-        
-//        System.out.println("\nCopia hecha\n");
-
-        return copia;
-    }
 
 }
