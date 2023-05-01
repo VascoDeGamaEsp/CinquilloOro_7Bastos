@@ -28,7 +28,7 @@ public class Juego {
     public void jugar() {
         int posicionTurno;
 
-        baraja.barajar();
+        
         crearJugadores();
         repartir();
         iu.mostrarJugadores(jugadores);
@@ -55,11 +55,10 @@ public class Juego {
             }
 
         } while (!turno.manoEsVacio());
-        
+
         iu.mostrarMensaje("Acabo la partida");
         iu.mostrarMensaje("Ganador: ");
         iu.mostrarMensaje(turno.getNombre());
-
 
     }
 
@@ -76,6 +75,7 @@ public class Juego {
     }
 
     private void repartir() {
+        baraja.barajar();
         while (!baraja.esVacia()) {
             for (Jugador jugador : jugadores) {
                 jugador.recogerCarta(baraja.pop());
@@ -106,6 +106,32 @@ public class Juego {
 
         }
 
+    }
+
+    private void partida() {
+        Jugador turno = jugadorInicial();
+        int posicionTurno = jugadores.indexOf(turno);
+
+        do {
+
+            iu.mostrarMensaje("COMIEZA LA PARTIDA\n");
+            iu.mostrarMensaje(mesa.toString());
+            iu.mostrarMensaje("----------------------------------------");
+
+            iu.mostrarMensaje("Turno de:");
+            iu.mostrarJugador(turno);
+            leerOpciones(turno);
+
+            if (!turno.manoEsVacio()) {
+                posicionTurno++;
+                if (posicionTurno >= jugadores.size()) {
+                    posicionTurno = 0;
+                }
+
+                turno = jugadores.get(posicionTurno);
+            }
+
+        } while (!turno.manoEsVacio());
     }
 
 }

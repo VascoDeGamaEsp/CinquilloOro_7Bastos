@@ -4,10 +4,13 @@
  */
 package es.uvigo.esei.aed1.iu;
 
+import es.uvigo.esei.aed1.core.Carta;
 import es.uvigo.esei.aed1.core.Jugador;
+import es.uvigo.esei.aed1.core.Mesa;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class IU {
@@ -91,6 +94,8 @@ public class IU {
         }
         return nombres;
     }
+    
+    
 }
 
 
