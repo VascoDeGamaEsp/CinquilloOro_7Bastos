@@ -85,7 +85,7 @@ public class Juego {
 
     private void leerOpciones(Jugador jugador) {
         int opcion;
-        LinkedList<Carta> cartasJugables = mesa.mirarPosibilidades(jugador);
+        List<Carta> cartasJugables = mesa.mirarPosibilidades(jugador);
         if (cartasJugables.isEmpty()) {
             do {
                 opcion = iu.leeNum("No puedes colocar ninguna carta."

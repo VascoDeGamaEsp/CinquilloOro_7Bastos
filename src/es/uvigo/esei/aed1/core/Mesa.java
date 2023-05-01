@@ -6,7 +6,6 @@
  */
 package es.uvigo.esei.aed1.core;
 
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,58 +35,47 @@ public class Mesa {
         }
     }
 
-    public LinkedList mirarPosibilidades(Jugador jugador) {
-        List<Carta> manoJugador = jugador.getManoCartas();
+    public Monton getMonton(String palo) {
+        Monton montonDevolver = null;
 
-        LinkedList<Carta> cartasPosibles = new LinkedList();
-        LinkedList<Carta> cartasJugables = new LinkedList();
-
-        Carta cartaAntes;
-        Carta cartaDespues;
-
-        int i;
-
-        i = 0;
-        while (i < Baraja.PALOS.length) {
-
-            if (montones[i].esVacio()) {
-                cartasPosibles.add(new Carta(5, Baraja.PALOS[i]));
-            } else {
-                try {
-                    cartaAntes = montones[i].verPrimero();
-
-                    cartasPosibles.add(new Carta(
-                            cartaAntes.getNumero() - 1,
-                            Baraja.PALOS[i]));
-
-                    cartaDespues = montones[i].verUltimo();
-
-                    cartasPosibles.add(new Carta(
-                            cartaDespues.getNumero() + 1,
-                            Baraja.PALOS[i]));
-
-                } catch (Exception e) {
-                    System.err.println("Error. " + e.getMessage());
-                }
-
-            }
+        int i = 0;
+        while (i < montones.length
+                && !montones[i].getPalo().equals(palo)) {
             i++;
         }
+        if (montones[i].getPalo().equals(palo)) {
+            montonDevolver = montones[i];
+        }
 
-        for (Carta carta : manoJugador) {
+        return montonDevolver;
 
-            i = 0;
+    }
 
-            while (i < cartasPosibles.size()
-                    && !cartasPosibles.get(i).esIgual(carta)) {
-                i++;
-            }
-            if (i < cartasPosibles.size()) {
-                cartasJugables.add(carta);
+    public List mirarPosibilidades(Jugador jugador) {
+        List<Carta> manoJugador = jugador.getManoCartas();
+        List<Carta> cartasJugables = new LinkedList();
+        Monton montonActual;
+        
+        for (Carta i : manoJugador) {
+            montonActual = getMonton(i.getPalo());
+            try {
+                if (i.getNumero() == 5) {
+                    cartasJugables.add(i);
+                }
+                else if (!montonActual.esVacio()
+                        && i.getNumero() + 1 == montonActual.verPrimero().getNumero()) { // mirar cartas por debajo del 5
+                    cartasJugables.add(i);
+                }
+                else if(!montonActual.esVacio()
+                        &&i.getNumero() - 1 == montonActual.verUltimo().getNumero()){ // mirar cartas por encima del 5
+                    cartasJugables.add(i);
+                }
+                
+            } catch (Exception e) {
+                System.err.println("Error. " + e.getMessage());
             }
 
         }
-
         return cartasJugables;
     }
 
