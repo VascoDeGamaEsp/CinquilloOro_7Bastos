@@ -28,7 +28,6 @@ public class Juego {
     public void jugar() {
         int posicionTurno;
 
-        
         crearJugadores();
         repartir();
         iu.mostrarJugadores(jugadores);
@@ -37,24 +36,26 @@ public class Juego {
         posicionTurno = jugadores.indexOf(turno);
 
         iu.mostrarMensaje("COMIEZA EL JUEGO\n");
-        do {
-            iu.mostrarMensaje(mesa.toString());
-            iu.mostrarMensaje("----------------------------------------");
-
-            iu.mostrarMensaje("Turno de:");
-            iu.mostrarJugador(turno);
-            leerOpciones(turno);
-
-            if (!turno.manoEsVacio()) {
-                posicionTurno++;
-                if (posicionTurno >= jugadores.size()) {
-                    posicionTurno = 0;
-                }
-
-                turno = jugadores.get(posicionTurno);
-            }
-
-        } while (!turno.manoEsVacio());
+        while (!partida()) {
+        }
+//        do {
+//            iu.mostrarMensaje(mesa.toString());
+//            iu.mostrarMensaje("----------------------------------------");
+//
+//            iu.mostrarMensaje("Turno de:");
+//            iu.mostrarJugador(turno);
+//            leerOpciones(turno);
+//
+//            if (!turno.manoEsVacio()) {
+//                posicionTurno++;
+//                if (posicionTurno >= jugadores.size()) {
+//                    posicionTurno = 0;
+//                }
+//
+//                turno = jugadores.get(posicionTurno);
+//            }
+//
+//        } while (!turno.manoEsVacio());
 
         iu.mostrarMensaje("Acabo la partida");
         iu.mostrarMensaje("Ganador: ");
@@ -83,7 +84,8 @@ public class Juego {
         }
     }
 
-    private void leerOpciones(Jugador jugador) {
+    private boolean leerOpciones(Jugador jugador) {
+        boolean asOros = false;
         int opcion;
         List<Carta> cartasJugables = mesa.mirarPosibilidades(jugador);
         if (cartasJugables.isEmpty()) {
@@ -101,17 +103,23 @@ public class Juego {
                 opcion = iu.leeNum("Escoge tu carta a jugar: ") - 1;
             } while (opcion < 0 || opcion >= cartasJugables.size());
 
+            asOros = cartasJugables.get(opcion).getNumero() == 1
+                    && cartasJugables.get(opcion).getPalo().equals("oros");
+
             mesa.añadirCarta(cartasJugables.get(opcion));
             jugador.eliminarCarta(cartasJugables.get(opcion));
 
         }
+        
+        return asOros;
 
     }
 
-    private void partida() {
+    private boolean partida() {
+        boolean asOros = false;
         Jugador turno = jugadorInicial();
         int posicionTurno = jugadores.indexOf(turno);
-
+        repartir();
         do {
 
             iu.mostrarMensaje("COMIEZA LA PARTIDA\n");
@@ -120,7 +128,7 @@ public class Juego {
 
             iu.mostrarMensaje("Turno de:");
             iu.mostrarJugador(turno);
-            leerOpciones(turno);
+            asOros = leerOpciones(turno);
 
             if (!turno.manoEsVacio()) {
                 posicionTurno++;
@@ -131,7 +139,13 @@ public class Juego {
                 turno = jugadores.get(posicionTurno);
             }
 
-        } while (!turno.manoEsVacio());
+        } while (!turno.manoEsVacio()
+                && !asOros);
+        iu.mostrarMensaje("Acabo la partida");
+        iu.mostrarMensaje("Ganador: ");
+        iu.mostrarMensaje(turno.getNombre());
+
+        return asOros;
     }
 
 }

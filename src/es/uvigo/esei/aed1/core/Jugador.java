@@ -12,16 +12,18 @@ public class Jugador {
 
     private String nombre;
     private List<Carta> manoCartas;
+    private int puntuacion;
 
     public Jugador(String nombre) {
         this.nombre = nombre;
         this.manoCartas = new LinkedList<>();
+        this.puntuacion = 0;
     }
 
-    public Jugador(String nombre, List<Carta> manoCartas) {
-        this.nombre = nombre;
-        this.manoCartas = manoCartas;
-    }
+//    public Jugador(String nombre, List<Carta> manoCartas) {
+//        this.nombre = nombre;
+//        this.manoCartas = manoCartas;
+//    }
 
     public String getNombre() {
         return nombre;
@@ -31,10 +33,18 @@ public class Jugador {
         this.nombre = nombre;
     }
 
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+    
     public List<Carta> getManoCartas() {
         return manoCartas;
     }
-
+    
     public void setManoCartas(List<Carta> manoCartas) {
         this.manoCartas = manoCartas;
     }
@@ -43,17 +53,8 @@ public class Jugador {
         manoCartas.remove(c);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder str = new StringBuilder();
-        str.append("Nombre: ").append(nombre);
-        str.append("\nMano: ");
-        for (Carta carta : manoCartas) {
-            str.append(carta.toString());
-        }
-        str.append("\n\n\n");
-
-        return str.toString();
+    public void sumarPuntos(int puntos){
+        setPuntuacion(this.puntuacion + puntos);
     }
     
     public boolean manoEsVacio(){
@@ -73,6 +74,17 @@ public class Jugador {
         return c2;
     }
     
-    
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("Nombre: ").append(nombre);
+        str.append("\nMano: ");
+        for (Carta carta : manoCartas) {
+            str.append(carta.toString());
+        }
+        str.append("\n\n\n");
+
+        return str.toString();
+    }
 
 }
