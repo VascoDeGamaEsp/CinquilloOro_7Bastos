@@ -23,10 +23,12 @@ public class Mesa {
         }
 
     }
-    public  boolean esAsOros(Carta c){
-        return c.getNumero() == 1 
+
+    public boolean esAsOros(Carta c) {
+        return c.getNumero() == 1
                 && c.getPalo().equalsIgnoreCase("oros");
     }
+
     public void añadirCarta(Carta carta) {
         getMonton(carta.getPalo()).añadirCarta(carta);
     }
@@ -51,28 +53,32 @@ public class Mesa {
         List<Carta> manoJugador = jugador.getManoCartas();
         List<Carta> cartasJugables = new LinkedList();
         Monton montonActual;
-        
+
         for (Carta i : manoJugador) {
             montonActual = getMonton(i.getPalo());
             try {
                 if (i.getNumero() == 5) {
                     cartasJugables.add(i);
-                }
-                else if (!montonActual.esVacio()
+                } else if (!montonActual.esVacio()
                         && i.getNumero() + 1 == montonActual.verPrimero().getNumero()) { // mirar cartas por debajo del 5
                     cartasJugables.add(i);
-                }
-                else if(!montonActual.esVacio()
-                        &&i.getNumero() - 1 == montonActual.verUltimo().getNumero()){ // mirar cartas por encima del 5
+                } else if (!montonActual.esVacio()
+                        && i.getNumero() - 1 == montonActual.verUltimo().getNumero()) { // mirar cartas por encima del 5
                     cartasJugables.add(i);
                 }
-                
+
             } catch (Exception e) {
                 System.err.println("Error. " + e.getMessage());
             }
 
         }
         return cartasJugables;
+    }
+
+    public void vaciarMesa() {
+        for (Monton monton : montones) {
+            monton.vaciarMonton();
+        }
     }
 
     @Override
@@ -82,14 +88,8 @@ public class Mesa {
         for (Monton monton : montones) {
             str.append(monton);
         }
-        str.append("\n");
+        str.append("----------------------------------------");
         return str.toString();
     }
 
-//    private void vaciarMesa() {
-//        
-//        for (Monton monton : montones) {
-//            monton.
-//        }
-//    }
 }

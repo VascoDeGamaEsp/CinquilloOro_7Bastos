@@ -55,6 +55,10 @@ public class Monton {
     public boolean esVacio() {
         return monton.isEmpty();
     }
+    
+    public void vaciarMonton(){
+        monton.clear();
+    }
 
     @Override
     public String toString() {

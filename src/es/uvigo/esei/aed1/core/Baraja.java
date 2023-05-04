@@ -33,7 +33,7 @@ public class Baraja {
     }
     
     public void barajar() {
-        int NUMERO_CARTAS = CARTAS_POR_PALO * PALOS.length;
+        //int NUMERO_CARTAS = CARTAS_POR_PALO * PALOS.length;
         int posicionAIntroducir;
 
         ArrayList<Carta> arrayCarta = new ArrayList<>();
@@ -42,14 +42,14 @@ public class Baraja {
         while (!pilaBaraja.esVacio()) {
             arrayCarta.add(pilaBaraja.pop());
         }
-        int i = 0;
-        while (i < NUMERO_CARTAS) {
+        
+        while (!arrayCarta.isEmpty()) {
 
-            posicionAIntroducir = aleatorio.nextInt(NUMERO_CARTAS - i);
+            posicionAIntroducir = aleatorio.nextInt(arrayCarta.size());
             
             pilaBaraja.push(arrayCarta.remove(posicionAIntroducir));
             
-            i++;
+          
         }
         
     }

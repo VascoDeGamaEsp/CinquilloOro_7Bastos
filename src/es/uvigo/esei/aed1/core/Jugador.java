@@ -74,6 +74,20 @@ public class Jugador {
         return c2;
     }
     
+    public void vaciarMano(){
+        manoCartas.clear();
+    }
+    
+    public String manoToString(){
+        StringBuilder str = new StringBuilder();
+        str.append("\nMano: ");
+        for (Carta carta : manoCartas) {
+            str.append(carta.toString());
+        }
+        str.append("\n\n");
+        return str.toString();
+    }
+    
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();

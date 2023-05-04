@@ -4,6 +4,7 @@
  */
 package es.uvigo.esei.aed1.iu;
 
+import es.uvigo.esei.aed1.core.Carta;
 import es.uvigo.esei.aed1.core.Jugador;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,6 +65,14 @@ public class IU {
             System.out.println(jugador.toString());
         }
     }
+    
+    public void mostrarTurno(Jugador jugador){
+        System.out.print("Turno de: " + jugador.getNombre());
+        mostrarMensaje(jugador.manoToString());
+        
+    }
+    
+   
 
     public Collection<String> pedirDatosJugadores() {
         Collection<String> nombres = new ArrayList<>();
