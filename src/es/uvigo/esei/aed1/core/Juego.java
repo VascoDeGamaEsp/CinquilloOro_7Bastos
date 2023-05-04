@@ -16,7 +16,10 @@ public class Juego {
     private Baraja baraja;
     private List<Jugador> jugadores;
     private Mesa mesa;
-
+    private boolean asOros = false;
+    private int puntosPartida = 4;
+    private int puntosAsOros = 2;
+    Jugador ganador;
     public Juego(IU iu) {
         this.iu = iu;
         this.baraja = new Baraja();
@@ -36,9 +39,11 @@ public class Juego {
         posicionTurno = jugadores.indexOf(turno);
 
         iu.mostrarMensaje("COMIEZA EL JUEGO\n");
-        while (!partida()) {
-        }
-//        do {
+        do {
+            partida();
+//            mesa.vaciarMesa();
+        } while (asOros == false);
+
 //            iu.mostrarMensaje(mesa.toString());
 //            iu.mostrarMensaje("----------------------------------------");
 //
@@ -56,10 +61,21 @@ public class Juego {
 //            }
 //
 //        } while (!turno.manoEsVacio());
-
-        iu.mostrarMensaje("Acabo la partida");
+         ganador = devolverGanador();
+         
+         
+        
+        iu.mostrarMensaje("Acabo el juego");
         iu.mostrarMensaje("Ganador: ");
-        iu.mostrarMensaje(turno.getNombre());
+        iu.mostrarMensaje(ganador.getNombre());
+        iu.mostrarMensaje("Puntuaciones");
+        for (Jugador jugador : jugadores) {
+            iu.mostrarMensaje(jugador.getNombre());
+            iu.mostrarMensaje(String.valueOf(jugador.getPuntuacion()));
+           
+        }
+            
+        
 
     }
 
@@ -84,8 +100,7 @@ public class Juego {
         }
     }
 
-    private boolean leerOpciones(Jugador jugador) {
-        boolean asOros = false;
+    private void jugada(Jugador jugador) {
         int opcion;
         List<Carta> cartasJugables = mesa.mirarPosibilidades(jugador);
         if (cartasJugables.isEmpty()) {
@@ -102,21 +117,18 @@ public class Juego {
             do {
                 opcion = iu.leeNum("Escoge tu carta a jugar: ") - 1;
             } while (opcion < 0 || opcion >= cartasJugables.size());
-
-            asOros = cartasJugables.get(opcion).getNumero() == 1
-                    && cartasJugables.get(opcion).getPalo().equals("oros");
-
+            if (!asOros) {
+                asOros = mesa.esAsOros(cartasJugables.get(opcion));
+                jugador.sumarPuntos(puntosAsOros);
+            }
             mesa.añadirCarta(cartasJugables.get(opcion));
             jugador.eliminarCarta(cartasJugables.get(opcion));
 
         }
-        
-        return asOros;
 
     }
 
-    private boolean partida() {
-        boolean asOros = false;
+    private void partida() {
         Jugador turno = jugadorInicial();
         int posicionTurno = jugadores.indexOf(turno);
         repartir();
@@ -125,27 +137,38 @@ public class Juego {
             iu.mostrarMensaje("COMIEZA LA PARTIDA\n");
             iu.mostrarMensaje(mesa.toString());
             iu.mostrarMensaje("----------------------------------------");
-
             iu.mostrarMensaje("Turno de:");
             iu.mostrarJugador(turno);
-            asOros = leerOpciones(turno);
 
+            jugada(turno);
             if (!turno.manoEsVacio()) {
                 posicionTurno++;
                 if (posicionTurno >= jugadores.size()) {
                     posicionTurno = 0;
                 }
-
+                if (!asOros) {
+                    puntosAsOros += 2;
+                    turno.sumarPuntos(puntosAsOros);
+                }
                 turno = jugadores.get(posicionTurno);
             }
 
-        } while (!turno.manoEsVacio()
-                && !asOros);
+        } while (!turno.manoEsVacio());
+        turno.sumarPuntos(puntosPartida);
         iu.mostrarMensaje("Acabo la partida");
         iu.mostrarMensaje("Ganador: ");
         iu.mostrarMensaje(turno.getNombre());
-
-        return asOros;
     }
 
+    private Jugador devolverGanador() {
+        Jugador max = jugadores.get(0);
+        for (Jugador jugador : jugadores) {
+            if (jugador.getPuntuacion() > max.getPuntuacion()) {
+                max = jugador;
+            }
+
+        }
+        return max;
+    
+    }
 }

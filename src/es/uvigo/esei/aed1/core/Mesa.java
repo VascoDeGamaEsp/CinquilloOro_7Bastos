@@ -23,16 +23,12 @@ public class Mesa {
         }
 
     }
-
+    public  boolean esAsOros(Carta c){
+        return c.getNumero() == 1 
+                && c.getPalo().equalsIgnoreCase("oros");
+    }
     public void añadirCarta(Carta carta) {
-        int i = 0;
-        while (i < Baraja.PALOS.length
-                && !carta.getPalo().equalsIgnoreCase(Baraja.PALOS[i])) {
-            i++;
-        }
-        if (i < Baraja.PALOS.length) {
-            montones[i].añadirCarta(carta);
-        }
+        getMonton(carta.getPalo()).añadirCarta(carta);
     }
 
     public Monton getMonton(String palo) {
@@ -89,4 +85,11 @@ public class Mesa {
         str.append("\n");
         return str.toString();
     }
+
+//    private void vaciarMesa() {
+//        
+//        for (Monton monton : montones) {
+//            monton.
+//        }
+//    }
 }
