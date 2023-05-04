@@ -9,6 +9,7 @@ import es.uvigo.esei.aed1.core.Jugador;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class IU {
@@ -72,6 +73,14 @@ public class IU {
         
     }
     
+    public void mostrarPuntuaciones(List<Jugador> jugadores){
+        mostrarMensaje("Puntuaciones:");
+        for (Jugador jugador : jugadores) {
+            mostrarMensaje(jugador.getNombre() + ": " 
+            + String.valueOf(jugador.getPuntuacion()));
+        }
+    }
+    
    
 
     public Collection<String> pedirDatosJugadores() {
@@ -80,7 +89,8 @@ public class IU {
         do {
             try {
 
-                numJugadores = Integer.parseInt(leeString("Introduzca numero de jugadores ( 3 o 4):"));
+                numJugadores = Integer.parseInt(leeString(
+                        "Introduzca numero de jugadores (3 o 4):"));
 
             } catch (NumberFormatException e) {
                 System.out.println("No a introducido un numero");

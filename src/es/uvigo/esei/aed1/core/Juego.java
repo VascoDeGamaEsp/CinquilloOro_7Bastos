@@ -35,17 +35,17 @@ public class Juego {
         iu.mostrarMensaje("COMIEZA EL JUEGO\n");
         do {
             partida();
-        } while (!asOros);
+        } while (!asOros); 
 
         ganador = devolverGanador();
 
         iu.mostrarMensaje("Acabo el juego");
         iu.mostrarMensaje("Ganador: ");
         iu.mostrarMensaje(ganador.getNombre());
-        iu.mostrarMensaje("Puntuaciones");
+        iu.mostrarMensaje("Puntuaciones Finales:");
         for (Jugador jugador : jugadores) {
-            iu.mostrarMensaje(jugador.getNombre());
-            iu.mostrarMensaje(String.valueOf(jugador.getPuntuacion()));
+            iu.mostrarMensaje(jugador.getNombre() + ": " 
+            + String.valueOf(jugador.getPuntuacion()));
 
         }
 
@@ -105,6 +105,7 @@ public class Juego {
 
     private void partida() {
         //Inicio de la partida
+        int opcion;
         Jugador turno = jugadorInicial();
         int posicionTurno = jugadores.indexOf(turno);
         repartir();
@@ -135,11 +136,17 @@ public class Juego {
         
         //Final de la partida
         turno.sumarPuntos(puntosPartida);
-        iu.mostrarMensaje("Acabo la partida");
-        iu.mostrarMensaje("Ganador: ");
-        iu.mostrarMensaje(turno.getNombre());
+        iu.mostrarMensaje("Acabo la partida\n" 
+                + "Ganador: " + turno.getNombre());
+        iu.mostrarPuntuaciones(jugadores);
         mesa.vaciarMesa();
         vaciarManos();
+        
+        if (!asOros) {
+            do { 
+                opcion = iu.leeNum("Pulsa '0' para comenzar la siguiente partida");
+            } while (opcion != 0);
+        }
     }
     
     
