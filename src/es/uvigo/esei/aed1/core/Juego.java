@@ -19,33 +19,43 @@ public class Juego {
     private boolean asOros = false;
     private int puntosPartida = 4;
     private int puntosAsOros = 2;
-    Jugador ganador;
+    List<Jugador> ganadores;
 
     public Juego(IU iu) {
         this.iu = iu;
         this.jugadores = new LinkedList<>();
         this.mesa = new Mesa();
-        
+
     }
 
     public void jugar() {
         crearJugadores();
-        
+
         iu.mostrarJugadores(jugadores);
         iu.mostrarMensaje("COMIEZA EL JUEGO\n");
         do {
             partida();
-        } while (!asOros); 
+        } while (!asOros);
 
-        ganador = devolverGanador();
+        ganadores = devolverGanadores();
 
         iu.mostrarMensaje("Acabo el juego");
-        iu.mostrarMensaje("Ganador: ");
-        iu.mostrarMensaje(ganador.getNombre());
+        if (ganadores.size() > 1) {
+            iu.mostrarMensaje("Ganadores: ");
+
+        } else {
+            iu.mostrarMensaje("Ganador: ");
+
+        }
+        
+        for (Jugador i : ganadores) {
+            iu.mostrarMensaje(i.getNombre());
+        }
+        
         iu.mostrarMensaje("Puntuaciones Finales:");
         for (Jugador jugador : jugadores) {
-            iu.mostrarMensaje(jugador.getNombre() + ": " 
-            + String.valueOf(jugador.getPuntuacion()));
+            iu.mostrarMensaje(jugador.getNombre() + ": "
+                    + String.valueOf(jugador.getPuntuacion()));
 
         }
 
@@ -112,7 +122,7 @@ public class Juego {
 
         //Desarrollo de la partida
         iu.mostrarMensaje("COMIEZA LA PARTIDA\n");
-  
+
         do {
 
             iu.mostrarMensaje(mesa.toString());
@@ -129,42 +139,58 @@ public class Juego {
                 turno = jugadores.get(posicionTurno);
             }
         } while (!turno.manoEsVacio());
-        
-        if (asOros==false) {
+
+        if (asOros == false) {
             puntosAsOros += 2;
         }
-        
+
         //Final de la partida
         turno.sumarPuntos(puntosPartida);
-        iu.mostrarMensaje("Acabo la partida\n" 
+        iu.mostrarMensaje("\nAcabo la partida\n"
                 + "Ganador: " + turno.getNombre());
-        iu.mostrarPuntuaciones(jugadores);
+        iu.mostrarClasificacion(jugadores);
         mesa.vaciarMesa();
         vaciarManos();
-        
+
         if (!asOros) {
-            do { 
-                opcion = iu.leeNum("Pulsa '0' para comenzar la siguiente partida");
+            do {
+                opcion = iu.leeNum("Pulsa '0' para comenzar la siguiente partida: ");
             } while (opcion != 0);
         }
     }
-    
-    
 
-    private Jugador devolverGanador() {
-        Jugador max = jugadores.get(0);
+//    private Jugador devolverGanador() {
+//        Jugador max = jugadores.get(0);
+//        for (Jugador jugador : jugadores) {
+//            if (jugador.getPuntuacion() > max.getPuntuacion()) {
+//                max = jugador;
+//            }
+//            
+//        }
+//        return max;
+//        
+//    }
+    private List<Jugador> devolverGanadores() {
+        List<Jugador> maxPuntuacion = new LinkedList<>();
+        int max = jugadores.get(0).getPuntuacion();
         for (Jugador jugador : jugadores) {
-            if (jugador.getPuntuacion() > max.getPuntuacion()) {
-                max = jugador;
+            if (jugador.getPuntuacion() > max) {
+                max = jugador.getPuntuacion();
             }
 
         }
-        return max;
+        for (Jugador jugador : jugadores) {
+            if (jugador.getPuntuacion() == max) {
+                maxPuntuacion.add(jugador);
+            }
+
+        }
+        return maxPuntuacion;
 
     }
-    
-    private void vaciarManos(){
-        for (Jugador i: jugadores) {
+
+    private void vaciarManos() {
+        for (Jugador i : jugadores) {
             i.vaciarMano();
         }
     }
