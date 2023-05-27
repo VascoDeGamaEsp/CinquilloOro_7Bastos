@@ -47,17 +47,13 @@ public class Juego {
             iu.mostrarMensaje("Ganador: ");
 
         }
-        
+
         for (Jugador i : ganadores) {
             iu.mostrarMensaje(i.getNombre());
         }
-        
-        iu.mostrarMensaje("Puntuaciones Finales:");
-        for (Jugador jugador : jugadores) {
-            iu.mostrarMensaje(jugador.getNombre() + ": "
-                    + String.valueOf(jugador.getPuntuacion()));
 
-        }
+        iu.mostrarMensaje("Puntuaciones Finales:");
+        iu.mostrarPuntuaciones(jugadores);
 
     }
 
@@ -101,7 +97,7 @@ public class Juego {
                 opcion = iu.leeNum("Escoge tu carta a jugar: ") - 1;
             } while (opcion < 0 || opcion >= cartasJugables.size());
             if (!asOros) {
-                asOros = mesa.esAsOros(cartasJugables.get(opcion));
+                asOros = cartasJugables.get(opcion).esAsOros();
                 if (asOros) {
                     jugador.sumarPuntos(puntosAsOros);
                 }
@@ -148,7 +144,7 @@ public class Juego {
         turno.sumarPuntos(puntosPartida);
         iu.mostrarMensaje("\nAcabo la partida\n"
                 + "Ganador: " + turno.getNombre());
-        iu.mostrarClasificacion(jugadores);
+        iu.mostrarPuntuaciones(jugadores);
         mesa.vaciarMesa();
         vaciarManos();
 
@@ -159,17 +155,6 @@ public class Juego {
         }
     }
 
-//    private Jugador devolverGanador() {
-//        Jugador max = jugadores.get(0);
-//        for (Jugador jugador : jugadores) {
-//            if (jugador.getPuntuacion() > max.getPuntuacion()) {
-//                max = jugador;
-//            }
-//            
-//        }
-//        return max;
-//        
-//    }
     private List<Jugador> devolverGanadores() {
         List<Jugador> maxPuntuacion = new LinkedList<>();
         int max = jugadores.get(0).getPuntuacion();

@@ -9,6 +9,7 @@ import es.uvigo.esei.aed1.core.Jugador;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -82,46 +83,44 @@ public class IU {
     }
 
     public void mostrarClasificacion(List<Jugador> jugadores) {
-        List<Jugador> jugadoresOrdenados = jugadores;
-        int vueltas = 0;
-        int i = 0;
-        
+        List<Jugador> jugadoresOrdenados = new LinkedList<>();
+        for (Jugador i : jugadores) {
+            jugadoresOrdenados.add(i);
+        }
+
         //ordenar de mayor a menor a los jugadores segun su puntuacion
         //con el metodo de la burbuja bidireccional
-        
-        
-        while (vueltas < jugadoresOrdenados.size() / 2) {
-            
-            while (i < (jugadoresOrdenados.size() - 1 - vueltas)) {
-                System.out.println("i: "+i);
+        for (int vueltas = 0; vueltas < jugadoresOrdenados.size() / 2; vueltas++) {
+            System.out.println("vuelta: " + vueltas);
+
+            for (int i = 0; i < jugadoresOrdenados.size() - 1 - vueltas; i++) {
+                System.out.println("i: " + i);
                 if (jugadoresOrdenados.get(i).getPuntuacion()
                         < jugadoresOrdenados.get(i + 1).getPuntuacion()) {
-                    
+
                     jugadoresOrdenados.add(i,
                             jugadoresOrdenados.remove(i + 1));
                 }
-                i++;
+
             }
 
-            while (i > vueltas) {
+            for (int i = jugadoresOrdenados.size() - 1 - vueltas; i > vueltas; i--) {
                 if (jugadoresOrdenados.get(i).getPuntuacion()
                         > jugadoresOrdenados.get(i - 1).getPuntuacion()) {
-                    
+
                     jugadoresOrdenados.add(i - 1,
                             jugadoresOrdenados.get(i - 1));
                 }
 
-                i--;
             }
 
-            vueltas++;
         }
-        
+
         for (int k = 0; k < jugadoresOrdenados.size(); k++) {
             System.out.println(jugadoresOrdenados.get(k).toString());
-            
+
         }
-        
+
         //mostrar por pantalla a los jugadores ordenados
         mostrarMensaje("Puntuaciones:");
 

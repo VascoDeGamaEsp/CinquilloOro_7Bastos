@@ -24,10 +24,10 @@ public class Mesa {
 
     }
 
-    public boolean esAsOros(Carta c) {
-        return c.getNumero() == 1
-                && c.getPalo().equalsIgnoreCase("oros");
-    }
+//    public boolean esAsOros(Carta c) {
+//        return c.getNumero() == 1
+//                && c.getPalo().equalsIgnoreCase("oros");
+//    }
 
     public void añadirCarta(Carta carta) {
         getMonton(carta.getPalo()).añadirCarta(carta);

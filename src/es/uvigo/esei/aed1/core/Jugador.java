@@ -65,14 +65,7 @@ public class Jugador {
     public void recogerCarta(Carta c) {
         manoCartas.add(c);
     }
-    
-    public Carta sacarCarta (int pos){
-        Carta c = manoCartas.get(pos);
-        Carta c2 = manoCartas.get(pos);
-        manoCartas.remove(c);
-        
-        return c2;
-    }
+   
     
     public void vaciarMano(){
         manoCartas.clear();
