@@ -82,53 +82,53 @@ public class IU {
         }
     }
 
-    public void mostrarClasificacion(List<Jugador> jugadores) {
-        List<Jugador> jugadoresOrdenados = new LinkedList<>();
-        for (Jugador i : jugadores) {
-            jugadoresOrdenados.add(i);
-        }
-
-        //ordenar de mayor a menor a los jugadores segun su puntuacion
-        //con el metodo de la burbuja bidireccional
-        for (int vueltas = 0; vueltas < jugadoresOrdenados.size() / 2; vueltas++) {
-            System.out.println("vuelta: " + vueltas);
-
-            for (int i = 0; i < jugadoresOrdenados.size() - 1 - vueltas; i++) {
-                System.out.println("i: " + i);
-                if (jugadoresOrdenados.get(i).getPuntuacion()
-                        < jugadoresOrdenados.get(i + 1).getPuntuacion()) {
-
-                    jugadoresOrdenados.add(i,
-                            jugadoresOrdenados.remove(i + 1));
-                }
-
-            }
-
-            for (int i = jugadoresOrdenados.size() - 1 - vueltas; i > vueltas; i--) {
-                if (jugadoresOrdenados.get(i).getPuntuacion()
-                        > jugadoresOrdenados.get(i - 1).getPuntuacion()) {
-
-                    jugadoresOrdenados.add(i - 1,
-                            jugadoresOrdenados.get(i - 1));
-                }
-
-            }
-
-        }
-
-        for (int k = 0; k < jugadoresOrdenados.size(); k++) {
-            System.out.println(jugadoresOrdenados.get(k).toString());
-
-        }
-
-        //mostrar por pantalla a los jugadores ordenados
-        mostrarMensaje("Puntuaciones:");
-
-        for (int j = 0; j < jugadoresOrdenados.size(); j++) {
-            mostrarMensaje((j + 1) + ". " + jugadoresOrdenados.get(j).getNombre()
-                    + ": " + jugadoresOrdenados.get(j).getPuntuacion());
-        }
-    }
+//    public void mostrarClasificacion(List<Jugador> jugadores) {
+//        List<Jugador> jugadoresOrdenados = new LinkedList<>();
+//        for (Jugador i : jugadores) {
+//            jugadoresOrdenados.add(i);
+//        }
+//
+//        //ordenar de mayor a menor a los jugadores segun su puntuacion
+//        //con el metodo de la burbuja bidireccional
+//        for (int vueltas = 0; vueltas < jugadoresOrdenados.size() / 2; vueltas++) {
+//            System.out.println("vuelta: " + vueltas);
+//
+//            for (int i = 0; i < jugadoresOrdenados.size() - 1 - vueltas; i++) {
+//                System.out.println("i: " + i);
+//                if (jugadoresOrdenados.get(i).getPuntuacion()
+//                        < jugadoresOrdenados.get(i + 1).getPuntuacion()) {
+//
+//                    jugadoresOrdenados.add(i,
+//                            jugadoresOrdenados.remove(i + 1));
+//                }
+//
+//            }
+//
+//            for (int i = jugadoresOrdenados.size() - 1 - vueltas; i > vueltas; i--) {
+//                if (jugadoresOrdenados.get(i).getPuntuacion()
+//                        > jugadoresOrdenados.get(i - 1).getPuntuacion()) {
+//
+//                    jugadoresOrdenados.add(i - 1,
+//                            jugadoresOrdenados.get(i - 1));
+//                }
+//
+//            }
+//
+//        }
+//
+//        for (int k = 0; k < jugadoresOrdenados.size(); k++) {
+//            System.out.println(jugadoresOrdenados.get(k).toString());
+//
+//        }
+//
+//        //mostrar por pantalla a los jugadores ordenados
+//        mostrarMensaje("Puntuaciones:");
+//
+//        for (int j = 0; j < jugadoresOrdenados.size(); j++) {
+//            mostrarMensaje((j + 1) + ". " + jugadoresOrdenados.get(j).getNombre()
+//                    + ": " + jugadoresOrdenados.get(j).getPuntuacion());
+//        }
+//    }
 
     public Collection<String> pedirDatosJugadores() {
         Collection<String> nombres = new ArrayList<>();
